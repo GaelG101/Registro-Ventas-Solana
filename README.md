@@ -13,9 +13,9 @@ Programa en Solana (Anchor) para que un negocio lleve su registro de clientes y 
 ## Estructura
 - `src/lib.rs`: programa de Solana
 - `idl.json`: IDL del programa
-- `client/`: cliente del programa
-- `tests/`: pruebas
+- `client/`: cliente de pruebas del curso (se ejecuta en Solana Playground)
 - `frontend/`: interfaz web (React + Vite + TypeScript)
+- `frontend/src/client.ts`: mi cliente para el frontend (conexión de wallet, cálculo del PDA y llamadas a las instrucciones)
 
 ## Reglas del programa
 - **Autoridad:** solo el owner del registro puede registrar ventas, devoluciones, cambios o bajas (`NoOwner`).
@@ -44,6 +44,4 @@ También construí el frontend y el cliente en TypeScript que conectan la wallet
 5. **Prueba de rechazo:** registrar una venta con monto `0` falla con `MontoInvalido` (6004).
 
 ## Evidencias (Devnet)
-- Crear registro: (https://explorer.solana.com/tx/2pL2MbgVzasgEoXJeX17vVN6n2fNhrXsR4vKaG3LfnbQtV6q2afiiUkXJvU5B75M8tzuEBzyZz6ZAYED8GvbWDnU?cluster=devnet)
-- Registrar venta: (https://explorer.solana.com/tx/4LHBfoAhbHuGssBPZMenhDzinnwg3iZg61AEy4w7kVvUy7ULiUvgCL6RhcgcrLxqBKfGprQDwfRbhkcwT6sg63ca?cluster=devnet)
-- Rechazo con monto 0 (MontoInvalido): - Rechazo con monto 0 (MontoInvalido): captura incluida en la entrega
+- Crear registro: https://explorer.solana.com/tx/2pL2MbgVzasgEoXJeX17v
