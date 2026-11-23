@@ -44,4 +44,6 @@ También construí el frontend y el cliente en TypeScript que conectan la wallet
 5. **Prueba de rechazo:** registrar una venta con monto `0` falla con `MontoInvalido` (6004).
 
 ## Evidencias (Devnet)
-- Crear registro: https://explorer.solana.com/tx/2pL2MbgVzasgEoXJeX17v
+- - Crear registro: https://explorer.solana.com/tx/2pL2MbgVzasgEoXJeX17vVN6n2fNhrXsR4vKaG3LfnbQtV6q2afiiUkXJvU5B75M8tzuEBzyZz6ZAYED8GvbWDnU?cluster=devnet
+- Registrar venta: https://explorer.solana.com/tx/4LHBfoAhbHuGssBPZMenhDzinnwg3iZg61AEy4w7kVvUy7ULiUvgCL6RhcgcrLxqBKfGprQDwfRbhkcwT6sg63ca?cluster=devnet
+- Rechazo con monto 0 (MontoInvalido, error 6004): captura incluida en el repositorio
