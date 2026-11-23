@@ -1,57 +1,49 @@
 # Registro de Ventas en Solana
 
-![banner](./images/Banner.jpg)
+## Ruta elegida
+Guiada: proyecto Registro / Cliente / Venta de las sesiones del curso, con una mejora propia.
 
-CRUD básico de un Solana Program desarrollado con Rust y Anchor desde el Solana Playground. 
+## Propósito
+Programa en Solana (Anchor) para que un negocio lleve su registro de clientes y ventas en la blockchain. Cada dueño tiene un registro propio (PDA) con sus clientes y el historial de compras de cada uno. Incluye un frontend en React con wallet para usarlo desde el navegador.
 
-Puedes comenzar dándole Fork a este repositorio (abajo te explicamos como 👇), **hemos preparado un entorno de codespaces listo para que no tengas que instalar nada**, solo déjate llevar por la fluidez de los ejercicios y temas desarrollados especialmente para ti. 
+## Despliegue en Devnet
+- **Program ID:** `788k8AagUMgf4zhJ519UxsF6QduZmfdFr4okVxURbWhg`
+- [Ver en Solana Explorer](https://explorer.solana.com/address/788k8AagUMgf4zhJ519UxsF6QduZmfdFr4okVxURbWhg?cluster=devnet)
 
-Asegúrate de clonar este repositorio a tu cuenta usando el botón **`Fork`**.
+## Estructura
+- `src/lib.rs`: programa de Solana
+- `idl.json`: IDL del programa
+- `client/`: cliente del programa
+- `tests/`: pruebas
+- `frontend/`: interfaz web (React + Vite + TypeScript)
 
-![fork](./images/fork.png)
+## Reglas del programa
+- **Autoridad:** solo el owner del registro puede registrar ventas, devoluciones, cambios o bajas (`NoOwner`).
+- **Pertenencia:** el registro es un PDA con seeds `"registro"` + clave pública del owner.
+- **Cierre de cuentas:** el registro solo se cierra si ya no tiene clientes (`RegistroConClientes`).
 
-## Importando el proyecto 
+## Cómo ejecutarlo
+Requisitos: Node.js y una wallet de Solana (Solflare o Phantom) en Devnet con SOL.
 
-Ya con el repositorio en tu cuenta lo siguiente que debes hacer copiar el `enlace de tu repositorio`, lo que se puede hacer directamente desdel navegador:
+    cd frontend
+    npm install
+    npm run dev
 
-![repo](./images/repo.png)
-Posteriormente, lo uniremos con el siguiente enlace en nuestro navegador de preferencia:
+Abre http://localhost:5173, conecta la wallet y usa los tres bloques: crear registro, registrar venta y leer datos.
 
-```url
-https://beta.solpg.io/
-```
+## Mi aporte propio
+Agregué una validación en el programa Rust: `registrar_venta` rechaza ventas con monto 0 (`require!(monto > 0, Errores::MontoInvalido)`, `src/lib.rs`, línea 64). Evita guardar ventas sin valor y devuelve un error claro (código 6004).
 
-Lo que nos dará algo parecido a:
+También construí el frontend y el cliente en TypeScript que conectan la wallet con el programa.
 
-![url](./images/url.png)
+## Cómo probarlo
+1. Conecta la wallet en Devnet.
+2. **Crear registro** con un nombre de negocio.
+3. **Registrar venta** con ID cliente `0` (crea un cliente nuevo), SKU, descripción y monto mayor a 0.
+4. **Leer datos** muestra el registro, los clientes y su historial.
+5. **Prueba de rechazo:** registrar una venta con monto `0` falla con `MontoInvalido` (6004).
 
-Al pulsar enter seremos enviados al `Solana Playground` con nuestro proyecto abierto:
-
-![pg](./images/pg.png)
-
-Para guardarlo solo damos clic en el boton `import` y asignamos un nombre:
-
-![import](./images/import.png)
-
-## Preparacion del entorno
-
-Primero conectaremos el entorno con la devnet, lo que tambien procederá a la creación de una wallet. Para eso daremos clic en donde dice **Not Conected**:
-
-![playground1](./images/playground1.png)
-
-Saldrá la siguiente ventana donde daremos en el botón **Continue**:
-
-![wallet](./images/wallet.png)
-
-Como resultado se mostrará la siguiente información:
-
-![status](./images/status.png)
-
-* En verde: el estado de la conexión y el entorno al que se encuentra conectado
-
-* En amarillo: la la dirección de la wallet conectada
-
-* En azul: la cantidad de tokens en la wallet
-
-> ℹ️ ¿Quieres ver el ejemplo de un "Hola Mundo" en Solana?. Da clic aquí: 👉 [Ver Ejemplo](https://github.com/WayLearnLatam/Solana-starter-kit/tree/1fc6349ba63375a3fe223d8d56911bc64765459b/build-deploy)
-
+## Evidencias (Devnet)
+- Crear registro: (https://explorer.solana.com/tx/2pL2MbgVzasgEoXJeX17vVN6n2fNhrXsR4vKaG3LfnbQtV6q2afiiUkXJvU5B75M8tzuEBzyZz6ZAYED8GvbWDnU?cluster=devnet)
+- Registrar venta: (https://explorer.solana.com/tx/4LHBfoAhbHuGssBPZMenhDzinnwg3iZg61AEy4w7kVvUy7ULiUvgCL6RhcgcrLxqBKfGprQDwfRbhkcwT6sg63ca?cluster=devnet)
+- Rechazo con monto 0 (MontoInvalido): - Rechazo con monto 0 (MontoInvalido): captura incluida en la entrega
